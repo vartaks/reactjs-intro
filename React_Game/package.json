@@ -1,0 +1,33 @@
+{
+  "name": "react-js-intro",
+  "version": "1.0.0",
+  "description": "Introduction to ReactJS",
+  "main": "index.html",
+  "scripts": {
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vartaks/react-js-intro.git"
+  },
+  "keywords": [
+    "reactjs"
+  ],
+  "author": "Sourabh Vartak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vartaks/react-js-intro/issues"
+  },
+  "homepage": "https://github.com/vartaks/react-js-intro#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "create-react-class": "^15.6.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}
