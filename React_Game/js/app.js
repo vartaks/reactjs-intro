@@ -1,15 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var createReactClass = require('create-react-class');
 
-var App = createReactClass({
-    render: function () {
-        return (
-            <div>
-                <h2>Hello Sourabh! Welcome to the world of React!</h2>
-            </div>
-        );
-    }
-});
+const Button = (props) => {
+    return (
+        <button>{props.label}</button>
+    );
+};
 
-ReactDOM.render(<App/>,  document.getElementById("app"));
+ReactDOM.render(<Button label='Click this!'/>,  document.getElementById('app'));
