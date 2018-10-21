@@ -1,24 +1,13 @@
 {
-  "name": "react-js-intro",
+  "name": "github_cards",
   "version": "1.0.0",
-  "description": "Introduction to ReactJS",
+  "description": "Github cards app",
   "main": "index.html",
   "scripts": {
     "start": "webpack"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vartaks/react-js-intro.git"
-  },
-  "keywords": [
-    "reactjs"
-  ],
   "author": "Sourabh Vartak",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/vartaks/react-js-intro/issues"
-  },
-  "homepage": "https://github.com/vartaks/react-js-intro#readme",
+  "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
