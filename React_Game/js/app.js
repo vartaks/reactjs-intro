@@ -2,12 +2,20 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 class Button extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.props.onClickFunction(this.props.incrementValue);
+    }
 
     render() {
         return (
-            <button 
-                onClick={() => this.props.onClickFunction(this.props.incrementValue)}>
-                +{this.props.incrementValue}
+            <button onClick={this.handleClick}>
+                + {this.props.incrementValue}
             </button>
         );
     }
@@ -34,7 +42,7 @@ class App extends React.Component {
         this.setState((prevState) => ({
             counter: prevState.counter + incrementValue
         }));
-    };
+    }
 
     render() {
         return (
