@@ -21,7 +21,7 @@ const Card = (props) => {
 const CardList = (props) => {
     return (
         <div>
-            {props.cards.map(card => <Card {...card} />)}
+            {props.cards.map(card => <Card key={card.id} {...card} />)}
         </div>
     );
 }
@@ -39,12 +39,17 @@ class Form extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        
+
         console.log('Event: Form Submit', this.state.userName);
 
         axios.get(`https://api.github.com/users/${this.state.userName}`)
             .then(resp => {
-                console.log(resp);
+                this.props.onSubmit(resp.data);
+                this.setState(
+                    {
+                        userName:''
+                    }
+                );
             });
     };
 
@@ -71,31 +76,25 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
+        this.addNewCard = this.addNewCard.bind(this);
+
         this.state = {
-            cards: [
-                {
-                    name:'Paul O’Shannessy',
-                    avatar_url:'https://avatars1.githubusercontent.com/u/8445?v=4',
-                    company:'Facebook'
-                },
-                {
-                    name:'Ben Alpert',
-                    avatar_url:'https://avatars0.githubusercontent.com/u/7585659?v=4',
-                    company:'Facebook'
-                },
-                {
-                    name:'Sourabh Vartak',
-                    avatar_url:'https://avatars3.githubusercontent.com/u/11024423?v=4',
-                    company:'Cimpress'
-                }
-            ]
+            cards: []
         }
     }
+
+    addNewCard(cardInfo) {
+        this.setState(prevState => (
+            {
+                cards: prevState.cards.concat(cardInfo)
+            }
+        ));
+    };
 
     render() {
         return (
             <div>
-                <Form />
+                <Form onSubmit={this.addNewCard} />
                 <CardList cards={this.state.cards} />
             </div>
         );

@@ -1,0 +1,21 @@
+Components
+	- <Card />
+	- <CardList />
+	- <Form />
+	- <App />
+	
+state.cards => [<Card />, <Card />, ...]
+
+Refs and controlled components
+
+Passing functions to child components
+
+--------------------------------------------------------
+
+1. Install NPM packages using 
+	npm install
+2. Build the app using
+	npm start 
+OR  webpack
+3. Run the app by opening the index.html file in Chrome browser like
+	file:///D:/sourabh/repos/github/react-js-intro/Github_Cards/index.html
