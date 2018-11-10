@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var axios = require('axios');
 
 const Card = (props) => {
     return (
@@ -38,7 +39,13 @@ class Form extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        
         console.log('Event: Form Submit', this.state.userName);
+
+        axios.get(`https://api.github.com/users/${this.state.userName}`)
+            .then(resp => {
+                console.log(resp);
+            });
     };
 
     render() {
