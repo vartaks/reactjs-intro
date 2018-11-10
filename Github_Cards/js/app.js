@@ -17,24 +17,6 @@ const Card = (props) => {
     );
 };
 
-let data = [
-    {
-        name:'Paul O’Shannessy',
-        avatar_url:'https://avatars1.githubusercontent.com/u/8445?v=4',
-        company:'Facebook'
-    },
-    {
-        name:'Ben Alpert',
-        avatar_url:'https://avatars0.githubusercontent.com/u/7585659?v=4',
-        company:'Facebook'
-    },
-    {
-        name:'Sourabh Vartak',
-        avatar_url:'https://avatars3.githubusercontent.com/u/11024423?v=4',
-        company:'Cimpress'
-    }
-];
-
 const CardList = (props) => {
     return (
         <div>
@@ -43,4 +25,63 @@ const CardList = (props) => {
     );
 }
 
-ReactDOM.render(<CardList cards={data} />,  document.getElementById('app'));
+class Form extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log('Event: Form Submit', this.userNameInput.value);
+    };
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <input type='text' 
+                    ref={(input) => this.userNameInput = input}
+                    placeholder='Github username' required />
+                <button type='submit'>Add card</button>
+            </form>
+        );
+    }
+}
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            cards: [
+                {
+                    name:'Paul O’Shannessy',
+                    avatar_url:'https://avatars1.githubusercontent.com/u/8445?v=4',
+                    company:'Facebook'
+                },
+                {
+                    name:'Ben Alpert',
+                    avatar_url:'https://avatars0.githubusercontent.com/u/7585659?v=4',
+                    company:'Facebook'
+                },
+                {
+                    name:'Sourabh Vartak',
+                    avatar_url:'https://avatars3.githubusercontent.com/u/11024423?v=4',
+                    company:'Cimpress'
+                }
+            ]
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <Form />
+                <CardList cards={this.state.cards} />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App />,  document.getElementById('app'));
