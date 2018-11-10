@@ -17,15 +17,30 @@ const Card = (props) => {
     );
 };
 
+let data = [
+    {
+        name:'Paul O’Shannessy',
+        avatar_url:'https://avatars1.githubusercontent.com/u/8445?v=4',
+        company:'Facebook'
+    },
+    {
+        name:'Ben Alpert',
+        avatar_url:'https://avatars0.githubusercontent.com/u/7585659?v=4',
+        company:'Facebook'
+    },
+    {
+        name:'Sourabh Vartak',
+        avatar_url:'https://avatars3.githubusercontent.com/u/11024423?v=4',
+        company:'Cimpress'
+    }
+];
+
 const CardList = (props) => {
     return (
         <div>
-            <Card name='Paul O’Shannessy'
-                avatar_url='https://avatars1.githubusercontent.com/u/8445?v=4'
-                company='Facebook'
-            />
+            {props.cards.map(card => <Card {...card} />)}
         </div>
     );
 }
 
-ReactDOM.render(<CardList />,  document.getElementById('app'));
+ReactDOM.render(<CardList cards={data} />,  document.getElementById('app'));
