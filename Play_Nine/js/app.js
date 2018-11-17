@@ -1,6 +1,48 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+const Stars = (props) => {
+    return (
+        <div>
+            stars...
+        </div>
+    );
+}
+
+const Button = (props) => {
+    return (
+        <div>
+            butt...
+        </div>
+    );
+}
+
+const Answer = (props) => {
+    return (
+        <div>
+            answer...
+        </div>
+    )
+}
+
+class Game extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                <h3>Play Nine!</h3>
+                <Stars />
+                <Button />
+                <Answer />
+            </div>
+        );
+    }
+}
+
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -9,7 +51,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <h3>Hola y bienvenidos a "Play Nine"!</h3>
+                <Game />
             </div>
         );
     }
