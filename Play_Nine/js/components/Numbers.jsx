@@ -12,6 +12,10 @@ export class Numbers extends React.Component {
     }
 
     numberClassName(number) {
+        if (this.props.usedNumbers.indexOf(number) >= 0) {
+            return 'used';
+        }
+
         if (this.props.selectedNumbers.indexOf(number) >= 0) {
             return 'selected';
         }
