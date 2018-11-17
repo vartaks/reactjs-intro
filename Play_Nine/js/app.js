@@ -1,20 +1,16 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const _ = require('lodash'),
+    React = require('react'),
+    ReactDOM = require('react-dom');
 
 const Stars = (props) => {
 
     // Random number of stars between 1 and 9
     const numberOfStars = 1 + Math.floor(Math.random() * 9);
 
-    let stars = [];
-
-    for (let i=0; i<numberOfStars; i++) {
-        stars.push(<i key={i} className="fa fa-star"></i>);
-    }
-
     return (
         <div className="col-5">
-            {stars}
+            {_.range(numberOfStars).map(i =>
+                <i key={i} className="fa fa-star"></i>)}
         </div>
     );
 }
@@ -30,7 +26,8 @@ const Button = (props) => {
 const Answer = (props) => {
     return (
         <div className="col-5">
-            answer...
+            <span>5</span>
+            <span>6</span>
         </div>
     )
 }
@@ -39,13 +36,16 @@ const Numbers = (props) => {
     return (
         <div className="card text-center">
             <div>
-                <span>1</span>
-                <span className="selected">2</span>
-                <span className="used">3</span>
+                {Numbers.list.map((number, i) =>
+                    <span key={i}>{number}</span>
+                )}
             </div>
         </div>
     );
 }
+
+// array of numbers from 1 to 9
+Numbers.list = _.range(1, 10);
 
 class Game extends React.Component {
     constructor(props) {
