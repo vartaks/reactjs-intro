@@ -11,6 +11,39 @@ export class Game extends React.Component {
         return 1 + Math.floor(Math.random() * 9);
     }
 
+    static possibleCombinationSum(arr, n) {
+        if (arr.indexOf(n) >= 0) {
+            return true;
+        }
+
+        if (arr[0] > n) {
+            return false;
+        }
+
+        if (arr[arr.length - 1] > n) {
+            arr.pop();
+            return possibleCombinationSum(arr, n);
+        }
+
+        var listSize = arr.length, combinationsCount = (1 << listSize)
+
+        for (var i = 1; i < combinationsCount; i++) {
+            var combinationSum = 0;
+
+            for (var j = 0; j < listSize; j++) {
+                if (i & (1 << j)) {
+                    combinationSum += arr[j];
+                }
+            }
+
+            if (n === combinationSum) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
     constructor(props) {
         super(props);
 
@@ -19,6 +52,7 @@ export class Game extends React.Component {
         this.checkAnswer = this.checkAnswer.bind(this);
         this.acceptAnswer = this.acceptAnswer.bind(this);
         this.redraw = this.redraw.bind(this);
+        this.updateDoneStatus = this.updateDoneStatus.bind(this);
 
         this.state = {
             selectedNumbers: [],
@@ -26,7 +60,7 @@ export class Game extends React.Component {
             usedNumbers: [],
             answerIsCorrect: null,
             redraws: 5,
-            doneStatus: 'Game Over!'
+            doneStatus: null
         };
     }
 
@@ -62,7 +96,10 @@ export class Game extends React.Component {
             selectedNumbers: [],
             answerIsCorrect: null,
             randomNumberOfStars: Game.randomNumber()
-        }));
+        }), this.updateDoneStatus // Since setState function is asynchronous, 
+            // we cannot call updateDoneStatus function after setState function 
+            // but need to pass it as an additional argument
+        );
     }
 
     redraw() {
@@ -75,7 +112,34 @@ export class Game extends React.Component {
             answerIsCorrect: null,
             selectedNumbers: [],
             redraws: prevState.redraws - 1
-        }));
+        }), this.updateDoneStatus // Since setState function is asynchronous, 
+            // we cannot call updateDoneStatus function after setState function 
+            // but need to pass it as an additional argument
+        );
+    }
+
+    possibleSolutions = ({ randomNumberOfStars, usedNumbers }) => {
+        const possibleNumbers = _.range(1, 10).filter(number =>
+            usedNumbers.indexOf(number) === -1
+        );
+
+        return Game.possibleCombinationSum(possibleNumbers, randomNumberOfStars);
+    }
+
+    updateDoneStatus() {
+        this.setState(prevState => {
+            if (prevState.usedNumbers.length === 9) {
+                return {
+                    doneStatus: 'Done. Nice!'
+                };
+            }
+
+            if (prevState.redraws === 0 && !this.possibleSolutions(prevState)) {
+                return {
+                    doneStatus: 'Game Over!'
+                };
+            }
+        });
     }
 
     render() {
