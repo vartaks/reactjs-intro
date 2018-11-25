@@ -44,9 +44,21 @@ export class Game extends React.Component {
         return false;
     };
 
+    static initialState() {
+        return {
+            selectedNumbers: [],
+            randomNumberOfStars: Game.randomNumber(),
+            usedNumbers: [],
+            answerIsCorrect: null,
+            redraws: 5,
+            doneStatus: null
+        }
+    }
+
     constructor(props) {
         super(props);
 
+        this.resetGame = this.resetGame.bind(this);
         this.selectNumber = this.selectNumber.bind(this);
         this.unselectNumber = this.unselectNumber.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
@@ -54,14 +66,11 @@ export class Game extends React.Component {
         this.redraw = this.redraw.bind(this);
         this.updateDoneStatus = this.updateDoneStatus.bind(this);
 
-        this.state = {
-            selectedNumbers: [],
-            randomNumberOfStars: Game.randomNumber(),
-            usedNumbers: [],
-            answerIsCorrect: null,
-            redraws: 5,
-            doneStatus: null
-        };
+        this.state = Game.initialState();
+    }
+
+    resetGame() {
+        this.setState(Game.initialState);
     }
 
     selectNumber(clickedNumber) {
@@ -118,7 +127,7 @@ export class Game extends React.Component {
         );
     }
 
-    possibleSolutions = ({ randomNumberOfStars, usedNumbers }) => {
+    possibleSolutions({ randomNumberOfStars, usedNumbers }) {
         const possibleNumbers = _.range(1, 10).filter(number =>
             usedNumbers.indexOf(number) === -1
         );
@@ -173,7 +182,8 @@ export class Game extends React.Component {
                 </div>
                 <br />
                 {doneStatus ?
-                    <DoneFrame doneStatus={doneStatus} /> :
+                    <DoneFrame resetGame={this.resetGame}
+                        doneStatus={doneStatus} /> :
                     <Numbers selectedNumbers={selectedNumbers}
                         selectNumber={this.selectNumber}
                         usedNumbers={usedNumbers} />
